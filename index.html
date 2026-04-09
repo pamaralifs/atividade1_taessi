@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Avaliação comparativa de 3 LLMs em questões da OAB</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="container hero">
+      <div class="hero-text">
+        <p class="eyebrow">
+        <h2>Universidade Federal de Sergipe</h2>
+        </p>
+        <p class="eyebrow">
+        <h2>Programa de Pós-graduação em Ciência da Computação</h2>
+        </p>
+        <ul>
+          <li><strong>Disciplina:</strong></li>
+          <ul>
+            <li>Tópicos Avançados em Engenharia de Software e Sistemas de Informação</li>
+          </ul>
+          <li><strong>Professor:</strong></li>
+          <ul>
+            <li>Dr. Glauco de Figueiredo Carneiro</li>
+          </ul>
+        </ul>
+        <p class="lead">
+          <center>
+            <h2>Atividade 1</h2>
+          </center>
+        </p>
+        <p class="lead">
+        <h2>Avaliação comparativa de 3 LLMs com questões da OAB</h2>
+        </p>
+        <ul>
+          <li><strong>Aluno:</strong></li>
+          <ul>
+            <li>Paulo do Amaral Costa <strong>(Equipe 4)</strong></li>
+          </ul>
+          <li><strong>Data:</strong></li>
+          <ul>
+            <li>09/04/2026</li>
+          </ul>
+        </ul>
+        <div class="hero-meta" id="heroMeta" style="display:none;"></div>
+        <div class="hero-actions" style="display:none;">
+          <a href="#metodologia" class="btn btn-primary">Metodologia</a>
+          <a href="#questoes-abertas" class="btn btn-primary">Resultados</a>
+          <a href="#visualizadores" class="btn btn-primary">Dataset Curado</a>
+        </div>
+      </div>
+      <aside class="hero-panel">
+        <div class="panel-card stat-card">
+          <span class="stat-label">Modelos avaliados</span>
+          <strong id="modelsCount">3</strong>
+          <small>jurema:7b · gemma3:12b · llama3.1:8b</small>
+        </div>
+        <div class="panel-card stat-card">
+          <span class="stat-label">Questões abertas</span>
+          <strong id="openQuestionCount">10</strong>
+          <small id="openRecordCount"></small>
+        </div>
+        <div class="panel-card stat-card">
+          <span class="stat-label">Questões objetivas</span>
+          <strong id="objectiveQuestionCount">123</strong>
+          <small id="objectiveRecordCount"></small>
+        </div>
+      </aside>
+    </div>
+  </header>
+
+  <nav class="section-nav">
+    <div class="container nav-inner; hero-actions">
+      <a href="#metodologia" class="btn btn-primary">Metodologia</a>
+      <a href="#visualizadores" class="btn btn-primary">Dataset Curado</a>
+      <a href="#questoes-abertas" class="btn btn-primary">Resultado Questões Abertas</a>
+      <a href="#questoes-objetivas" class="btn btn-primary">Resultado Questões Objetivas</a>
+      <a href="#conclusao" class="btn btn-primary">Conclusões</a>
+      <a href="#arquivos" class="btn btn-primary">Arquivos</a>
+    </div>
+  </nav>
+
+  <main>
+    <section id="metodologia" class="section">
+      <div class="container">
+        <div class="section-heading">
+          <p class="section-kicker" style="display:none;">Contexto experimental</p>
+          <h2>Metodologia</h2>
+        </div>
+        <div class="grid three">
+          <article class="panel-card info-card">
+            <h3>Dataset e Curadoria</h3>
+            <article class="panel-card info-card">
+              <h3>Questões abertas</h3>
+              <ul>
+                <li>O dataset de 10 questões foi curado por "Área de especialidade", "Nível de dificuldade" e
+                  "Legislação
+                  de referência".</li>
+                <li id="openMethodText"></li>
+                <li>O BERTimbau ou mBERT vetoriza o texto e o algoritmo BERTScore calcula a similaridade similaridade do
+                  cosseno,
+                  comparando semânticamente as respostas dos modelos com as "respostas de referência" do
+                  gabarito espelho da prova do 42º Exame da OAB.</li>
+              </ul>
+            </article>
+            <article class="panel-card info-card">
+              <h3>Questões objetivas</h3>
+              <ul>
+                <li>O dataset de 123 questões foi curado por "Área de especialidade" e "Nível de dificuldade".</li>
+                <li id="objectiveMethodText"></li>
+              </ul>
+            </article>
+          </article>
+          <article class="panel-card info-card">
+            <h3>Ambiente dos Experimentos</h3>
+            <article class="panel-card info-card">
+              <h3>Plano Experimental</h3>
+              <ul>
+                <li>Os experimentos foram realizados no ambiente do Google Colab, com a GPU NVIDIA T4 de 16 GB de VRAM.
+                </li>
+                <li>As submissões das questões aos LLMs foram executadas via interface API do Ollama (api/chat), através
+                  de script Python.</li>
+
+                <li>Os modelos foram executados 100% em GPU:</li>
+              </ul>
+            </article>
+
+            <article class="panel-card info-card">
+              <h3>Parâmetros de Execução:</li>
+              </h3>
+
+              <ul>
+                <li>PARAMETER temperature 0 (objetividade e precisão).</li>
+                <li>PARAMETER repeat_penalty 1.2 (penalidade de repetição).</li>
+                <li>PARAMETER repeat_last_n 128 (janela de observação de repetição).</li>
+                <li>PARAMETER num_predict 512 (limitar tokens para evitar respostas infinitas).</li>
+                <li>Não foi preciso definir o PARAMETER num_ctx (janela de contexto), principalmente para questões
+                  objetivas,
+                  a fim de poder capturar respostas de modelos pensantes, sendo adotado o padrão do Ollama (2048
+                  tokens).
+                </li>
+                <li>Iguais para questões abertas e objetivas
+                </li>
+              </ul>
+            </article>
+          </article>
+          <article class="panel-card info-card">
+            <h3>Modelos e Softwares</h3>
+            <article class="panel-card info-card">
+              <h3>LLMs avaliados</h3>
+              <ul>
+                <li><strong>jurema:7b</strong><br>LLM jurídico brasileiro de código aberto (sob licença Apache 2.0),
+                  treinado com dados nacionais e criado por Escavador e NeuralMind.</li>
+                <li><strong>llama3.1:8b</strong><br>LLM multilíngue de pesos abertos, criado pela Meta.</li>
+                <li><strong>gemma3:12b</strong><br>LLM multilíngue de pesos abertos da Google, construída com a
+                  tecnologia
+                  Gemini.</li>
+              </ul>
+            </article>
+            <article class="panel-card info-card">
+              <h3>Ferramentas de Software</h3>
+              <ul>
+                <li>Ollama versão 0.20.3 (ferramenta para execução local de LLMs)</li>
+                <li>Python versão 3.12.13 (scripts para submissão, cálculo das métricas, criação de tabelas, gráficos
+                  e
+                  outros arquivos de saída.)</li>
+                <li>Visual Studio Code (edição de scripts Python e arquivos JSON)</li>
+                <li>Microsoft Excel e Bloco de Notas (edição e visualização de arquivos CSV.)</li>
+              </ul>
+            </article>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="questoes-abertas" class="section alt">
+      <div class="container">
+        <div class="section-heading">
+          <p class="section-kicker" style="display:none;">Parte 1</p>
+          <h2>Resultado Questões Abertas</h2>
+          <p id="openDatasetText"></p>
+        </div>
+
+        <div class="grid metrics" id="openTopCards"></div>
+
+        <div class="grid two tables-grid">
+          <article class="panel-card">
+            <div class="card-header">
+              <h3>Ranking final — BERTimbau</h3>
+            </div>
+            <div class="table-wrap" id="openRankingTable"></div>
+          </article>
+          <article class="panel-card">
+            <div class="card-header">
+              <h3>Resumo por modelo e avaliador</h3>
+            </div>
+            <div class="table-wrap" id="openEvaluatorTable"></div>
+          </article>
+        </div>
+
+        <div class="grid three tables-grid compact">
+          <article class="panel-card">
+            <div class="card-header">
+              <h3>Por área</h3>
+            </div>
+            <div class="table-wrap" id="openAreaTable"></div>
+          </article>
+          <article class="panel-card">
+            <div class="card-header">
+              <h3>Por dificuldade</h3>
+            </div>
+            <div class="table-wrap" id="openDifficultyTable"></div>
+          </article>
+          <article class="panel-card">
+            <div class="card-header">
+              <h3>Por tipo de questão</h3>
+            </div>
+            <div class="table-wrap" id="openTypeTable"></div>
+          </article>
+        </div>
+
+        <div class="chart-section">
+          <div class="card-header chart-header">
+            <h3>Gráficos - Questões abertas</h3>
+            <p>Clique na imagem para ampliar.</p>
+          </div>
+          <div class="chart-grid" id="openCharts"></div>
+        </div>
+
+        <div class="panel-card notes-card">
+          <div class="card-header">
+            <h3>Observações</h3>
+          </div>
+          <ul id="openNotes"></ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="questoes-objetivas" class="section">
+      <div class="container">
+        <div class="section-heading">
+          <p class="section-kicker" style="display:none;">Parte 2</p>
+          <h2>Resultado Questões Objetivas</h2>
+          <p id="objectiveDatasetText"></p>
+        </div>
+
+        <div class="grid metrics" id="objectiveTopCards"></div>
+
+        <div class="grid two tables-grid">
+          <article class="panel-card">
+            <div class="card-header">
+              <h3>Resumo geral</h3>
+            </div>
+            <div class="table-wrap" id="objectiveSummaryTable"></div>
+          </article>
+          <article class="panel-card">
+            <div class="card-header">
+              <h3>Melhores áreas por modelo</h3>
+            </div>
+            <div class="table-wrap" id="objectiveTopAreasTable"></div>
+          </article>
+        </div>
+
+        <div class="panel-card">
+          <div class="card-header">
+            <h3>Acurácia por nível de dificuldade</h3>
+          </div>
+          <div class="table-wrap" id="objectiveDifficultyTable"></div>
+        </div>
+
+        <div class="chart-section">
+          <div class="card-header chart-header">
+            <h3>Gráficos - Questões objetivas</h3>
+            <p>Clique na imagem para ampliar.</p>
+          </div>
+          <div class="chart-grid" id="objectiveCharts"></div>
+        </div>
+
+        <div class="panel-card notes-card">
+          <div class="card-header">
+            <h3>Observações</h3>
+          </div>
+          <ul id="objectiveNotes"></ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="visualizadores" class="section alt">
+      <div class="container">
+        <div class="section-heading">
+          <p class="section-kicker">Dataset Curado</p>
+          <h2>Dataset Curado</h2>
+          <p>Os formulários abaixo permitem filtrar e navegar pelos registros das "Questões abertas" e "Questões
+            objetivas".</p>
+        </div>
+
+        <div class="tabs">
+          <button class="tab-button active" data-tab="openViewer">Questões abertas</button>
+          <button class="tab-button" data-tab="objectiveViewer">Questões objetivas</button>
+        </div>
+
+        <div class="tab-panel active" id="openViewer">
+          <div class="viewer-controls panel-card">
+            <div class="filters-grid">
+              <label>
+                <span>Modelo</span>
+                <select id="openFilterModel"></select>
+              </label>
+              <label>
+                <span>Avaliador</span>
+                <select id="openFilterEvaluator"></select>
+              </label>
+              <label>
+                <span>Área</span>
+                <select id="openFilterArea"></select>
+              </label>
+              <label>
+                <span>Questão</span>
+                <select id="openFilterQuestion"></select>
+              </label>
+              <label class="full-width">
+                <span>Busca textual</span>
+                <input id="openSearch" type="search"
+                  placeholder="Buscar por id, área, análise ou trecho da resposta..." />
+              </label>
+            </div>
+            <div class="viewer-nav">
+              <button id="openPrev" class="btn btn-secondary">Anterior</button>
+              <span id="openCounter" class="counter"></span>
+              <button id="openNext" class="btn btn-secondary">Próximo</button>
+            </div>
+          </div>
+          <div id="openRecordForm" class="record-form panel-card"></div>
+        </div>
+
+        <div class="tab-panel" id="objectiveViewer">
+          <div class="viewer-controls panel-card">
+            <div class="filters-grid">
+              <label>
+                <span>Modelo</span>
+                <select id="objectiveFilterModel"></select>
+              </label>
+              <label>
+                <span>Área</span>
+                <select id="objectiveFilterArea"></select>
+              </label>
+              <label>
+                <span>Dificuldade</span>
+                <select id="objectiveFilterDifficulty"></select>
+              </label>
+              <label>
+                <span>Resultado</span>
+                <select id="objectiveFilterResult"></select>
+              </label>
+              <label class="full-width">
+                <span>Busca textual</span>
+                <input id="objectiveSearch" type="search"
+                  placeholder="Buscar por id, enunciado, gabarito ou resposta..." />
+              </label>
+            </div>
+            <div class="viewer-nav">
+              <button id="objectivePrev" class="btn btn-secondary">Anterior</button>
+              <span id="objectiveCounter" class="counter"></span>
+              <button id="objectiveNext" class="btn btn-secondary">Próximo</button>
+            </div>
+          </div>
+          <div id="objectiveRecordForm" class="record-form panel-card"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="conclusao" class="section">
+      <div class="container; hero-actions">
+        <div class="section-heading">
+          <p class="section-kicker" style="display:none;">Cnclusão</p>
+          <h2>Conclusões</h2>
+          <p style="display:none;">Links diretos para os principais artefatos usados no experimento e na construção deste site.</p>
+        </div>
+        <div class="panel-card notes-card">
+          <div class="card-header">
+            <h3>Experimentos</h3>
+          </div>
+          <div class="panel-card notes-card">
+            <div class="card-header">
+              <h3>Questões abertas (F1 Score)</h3>
+            </div>
+            <ul>
+              <li><strong>BERTimbau Large atribuiu notas maiores do que o mBERT</strong> para esse cenário em português jurídico. Isso sugere que esse avaliador especializado em português brasileiro captou melhor a similaridade semântica do que o modelo multilíngue.</li>
+              <li><strong>O llama3.1:8b foi o melhor modelo nas questões abertas</strong>, com 64,5% de F1-Score pelo BERTimbau Large.</li>
+              <li>Gemma3:12b (63,6%)ficou muito próximo e o <strong>Jurema:7b (61,8%), apesar de treinado no domínio jurídico brasileiro</strong>, ficou em última colocação</li>
+              <li>Considerando que, de acordo com o edital da OAB, no qual para a Nota na Prova Prático-Profissional (NPPP), 
+               numa escala de 0,00 (zero) a 10,00 (dez) pontos, será considerado aprovado o examinando que obtiver NPPP igual
+                ou superior a 6,00 (seis) pontos, Nesse caso, <strong>os 3 modelos seriam aprovados no exame de questões abertas</strong>. 
+                Porém, <strong>o gemma seria vencedor</strong> por ter sido o único aprovado também na prova objetiva.</li>
+            </ul>
+          </div>
+          <div class="panel-card notes-card">
+            <div class="card-header">
+              <h3>Questões objetivas (Acurácia)</h3>
+            </div>
+            <ul>
+              <li><strong>O melhor modelo para questões objetivas foi o gemma3:12b</strong>, com 68 acertos em 123 questões (55,28% de acurácia).</li>
+              <li><strong>O jurema:7b foi o pior, também nas questões objetivas</strong>, com apenas 40 acertos. A especialização temática do modelo não garantiu melhor acurácia.</li>
+              <li><strong>Considerando que</strong> a nota para habilitação à prova prático-profissional, isto é, <strong>para passar para 
+                a segunda fase do certame é necessário o mínimo de 50% de acertos</strong> nas questões objetivas, conforme edital 
+                da OAB, <strong>apenas o gemma3:12b seria aprovado</strong>.</li>
+            </ul>
+          </div>
+          <div class="panel-card notes-card">
+            <div class="card-header">
+              <h3>Síntese</h3>
+            </div>
+            <ul>
+              <li><strong>Modelo aprovado em ambas as fase do exame OAB:</strong> gemma3:12b.</li>
+              <li><strong>Questões abertas:</strong> melhor modelo = llama3.1:8b.</li>
+              <li><strong>Questões objetivas:</strong> melhor modelo = gemma3:12b.</li>
+              <li><strong>Jurema:7b não venceu em nenhum dos dois cenários. Esse talvez tenha sido o melhor achado, isto é, a maior surpresa desses dois experimentos.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="arquivos" class="section">
+      <div class="container">
+        <div class="section-heading">
+          <p class="section-kicker" style="display:none;">Materiais anexos</p>
+          <h2>Arquivos disponíveis para consulta</h2>
+          <p>Links diretos para os principais artefatos usados no experimento e na construção deste site.</p>
+        </div>
+        <div class="resources-grid" id="resourcesList"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>Aluno: Paulo do Amaral Costa (Equipe 4)</p>
+      <p>Atividade  1.</p>
+    </div>
+  </footer>
+
+  <dialog id="imageModal" class="image-modal">
+    <button class="modal-close" id="modalClose" aria-label="Fechar">×</button>
+    <img id="modalImage" src="" alt="Gráfico ampliado" />
+    <p id="modalCaption"></p>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+
+</html>
