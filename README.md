@@ -21,5 +21,5 @@ https://www.vidline.com/share/V02WHO34G6/a1f63c7d913ddae74c079450eba8ac35
 * Acesse o site/relatório clicando no link acima.
 
 ### Observação:
-* Os arquivos ".ypnb" (júpiter notebook) usados no Google Colab estão disponíveis na pasta "files".
+* Os arquivos ".ypnb" (júpiter notebook) usados no Google Colab também estão disponíveis na pasta "files".
 
