@@ -24,7 +24,7 @@
     "openMethod": "BERTScore F1 foi a métrica algorítmica usada para avaliar as respostas dos modelos, com os modelos BERTimbau Large (brasileiro) e mBERT (multilingual) usados na vetorização dos textos em português."
   },
   "openExperiment": {
-    "datasetText": "Foram 10 questões abertas do 42º Exame da OAB 2024/2025, sendo 5 de Direito Constitucional e 5 de Direito do Trabalho. O conjunto inclui 2 peças profissionais e 8 questões discursivas com itens A e B.",
+    "datasetText": "Foram 10 questões abertas do 42º Exame da OAB 2024/2025, sendo 5 de Direito Constitucional e 5 de Direito do Trabalho. O conjunto inclui 2 peças profissionais e 8 questões discursivas com itens A e B. Abaixo encontram-se as tabelas e gráficos dos resultados.",
     "ranking": [
       {
         "Modelo": "llama3.1:8b",
@@ -1754,7 +1754,7 @@
     ]
   },
   "objectiveExperiment": {
-    "datasetText": "Foram 123 questões objetivas dos 16º e 17º Exames da OAB de 2015, avaliadas por acurácia da alternativa correta.",
+    "datasetText": "Foram 123 questões objetivas dos 16º e 17º Exames da OAB de 2015, avaliadas por acurácia da alternativa correta. Abaixo encontram-se as tabelas e gráficos dos resultados.",
     "summary": [
       {
         "modelo_display": "gemma3:12b",
