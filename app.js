@@ -277,7 +277,7 @@ const initPage = (data) => {
 
   const topObjective = (data.objectiveExperiment.summary || []).slice().sort((a, b) => parseFloat(String(b['Acurácia (%)']).replace(',', '.')) - parseFloat(String(a['Acurácia (%)']).replace(',', '.')))[0] || {};
   renderMetricCards([
-    { title: 'Melhor modelo', value: topObjective['Modelo'] || topObjective['modelo_amigavel'] || '—', subtitle: `Acurácia: ${topObjective['Acurácia (%)'] || topObjective['acc_percent'] || '—'}%` },
+    { title: 'Melhor modelo', value: topObjective['modelo_display'] || topObjective['modelo_amigavel'] || '—', subtitle: `Acurácia: ${topObjective['Acurácia (%)'] || topObjective['acuracia'] || '—'}%` },
     { title: 'Questões avaliadas', value: String(data.overview.objectiveQuestionsCount), subtitle: data.overview.objectiveExams },
     { title: 'Métrica principal', value: 'Acurácia', subtitle: 'Comparação direta com o gabarito oficial' },
   ], 'objectiveTopCards');
