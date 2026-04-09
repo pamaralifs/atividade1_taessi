@@ -11,7 +11,7 @@
 https://pamaralifs.github.io/atividade1_taessi/
 
 ### Experimento de Avaliação Comparativa de 3 LLMs com Questões da OAB
-* Este repositório contém os arquivos, gráficos e resultados dos experimentos com os modelos llama3.1:8b, gemma3:12b e jurema:7b em questões abertas e objetivas da OAB.
+* Este repositório contém os arquivos, gráficos e resultados dos experimentos com os modelos **llama3.1:8b**, **gemma3:12b** e **jurema:7b** em questões abertas e objetivas da OAB.
 * Acesse o site/relatório clicando no link acima.
 
 
