@@ -1,9 +1,9 @@
-#### Universidade Federal de Sergipe
-#### Programa de Pós-graduação em Ciência da Computação
-Disciplina: Tópicos Avançados em Engenharia de Software e Sistemas de Informação
-Professor: Dr. Glauco de Figueiredo Carneiro
-Aluno: Paulo do A. Costa (Equipe 4)
-Data: 09/04/2026
+### Universidade Federal de Sergipe
+### Programa de Pós-graduação em Ciência da Computação
+* Disciplina: Tópicos Avançados em Engenharia de Software e Sistemas de Informação
+* Professor: Dr. Glauco de Figueiredo Carneiro
+* Aluno: Paulo do A. Costa (Equipe 4)
+* Data: 09/04/2026
 
 ## Site do experimento - Atividade 1
 
